@@ -1,10 +1,8 @@
 import java.text.NumberFormat;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Locale;
 
 public class Principal {
 
@@ -82,6 +80,39 @@ public class Principal {
                         f.getDataNascimento().format(data),
                         moeda.format(f.getSalario()),
                         f.getFuncao());
+            }
+
+
+            // 3.5 Agrupar funcionários em um map, sendo a chave a função e o valor a lista de funcionários
+
+            Map<String, List<Funcionario>> funcionariosPorFuncao = new HashMap<>();
+
+            for(Funcionario f: funcionarios){
+
+                String funcao = f.getFuncao();
+
+                if(!funcionariosPorFuncao.containsKey(funcao)){
+                    funcionariosPorFuncao.put(funcao, new ArrayList<>());
+                }
+
+                funcionariosPorFuncao.get(funcao).add(f);
+            }
+
+            NumberFormat moeda = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("pt-BR"));
+
+            System.out.println("Funcionários por função");
+            System.out.printf("%-15s %-12s %15s%n", "Nome", "Nascimento", "Salário");
+            System.out.println("-".repeat(44));
+
+            for (String funcao : funcionariosPorFuncao.keySet()) {
+                System.out.println(funcao);
+
+                for (Funcionario f : funcionariosPorFuncao.get(funcao)) {
+                    System.out.printf("%-15s %-12s %15s%n",
+                            f.getNome(),
+                            f.getDataNascimento().format(data),
+                            moeda.format(f.getSalario()));
+                }
             }
         }
 
