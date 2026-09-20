@@ -54,6 +54,7 @@ public class Principal {
             }
 
             // 3.4 - Funcionários recebem 10% de aumento
+            System.out.println("-".repeat(55));
             System.out.println("Funcionários com novo salário, aumento 10%");
             for (Funcionario f : funcionarios) {
 
@@ -65,7 +66,6 @@ public class Principal {
 
                 f.setSalario(salarioNovo);
             }
-
 
             //Imprime funcionários com aumento
             System.out.printf("%-15s %-15s %15s %-15s%n", "Nome", "Nascimento", "Salário", "Função");
@@ -100,6 +100,7 @@ public class Principal {
 
             NumberFormat moeda = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("pt-BR"));
 
+            System.out.println("-".repeat(44));
             System.out.println("Funcionários por função");
             System.out.printf("%-15s %-12s %15s%n", "Nome", "Nascimento", "Salário");
             System.out.println("-".repeat(44));
@@ -108,6 +109,22 @@ public class Principal {
                 System.out.println(funcao);
 
                 for (Funcionario f : funcionariosPorFuncao.get(funcao)) {
+                    System.out.printf("%-15s %-12s %15s%n",
+                            f.getNome(),
+                            f.getDataNascimento().format(data),
+                            moeda.format(f.getSalario()));
+                }
+            }
+
+            //Aniversariantes de outubro e dezembro (10, 12)
+            System.out.println("-".repeat(44));
+            System.out.println("Aniversariantes de outubro e dezembro (10, 12)");
+            System.out.println("-".repeat(44));
+            for(Funcionario f: funcionarios){
+
+                int mes = f.getDataNascimento().getMonthValue();
+
+                if(mes == 10 || mes == 12 ){
                     System.out.printf("%-15s %-12s %15s%n",
                             f.getNome(),
                             f.getDataNascimento().format(data),
