@@ -180,6 +180,22 @@ public class Principal {
                     f.getFuncao());
         }
 
+        //Imprimir total dos salários dos funcionários
+
+        System.out.println("-".repeat(44));
+        System.out.println("Total salário funcionários");
+        System.out.println("-".repeat(44));
+
+        BigDecimal total = BigDecimal.ZERO;
+
+        for(Funcionario f: funcionarios){
+            BigDecimal salario = f.getSalario();
+
+            total = total.add(salario);
+
+        }
+        System.out.println("Total dos salários: " + moeda.format(total));
+
     }
 
 }
