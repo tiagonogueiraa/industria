@@ -1,3 +1,4 @@
+import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -195,6 +196,30 @@ public class Principal {
 
         }
         System.out.println("Total dos salários: " + moeda.format(total));
+
+        // Lista de funcionários agrupado  salário / salário mínimo
+
+        BigDecimal salarioMinimo = new BigDecimal("1212.00");
+
+        // formatador só de número (sem o "R$"), com vírgula e 2 casas
+        NumberFormat numero = NumberFormat.getNumberInstance(Locale.forLanguageTag("pt-BR"));
+        numero.setMinimumFractionDigits(2); // define 2 casas mínimo
+        numero.setMaximumFractionDigits(2);
+
+        System.out.println("-".repeat(44));
+        System.out.println("Salários mínimos por funcionário (mínimo: " + moeda.format(salarioMinimo) + ")");
+        System.out.printf("%-15s %15s %12s%n", "Nome", "Salário", "Qtd. mínimos");
+        System.out.println("-".repeat(44));
+
+        for (Funcionario f : funcionarios) {
+
+            BigDecimal quantidade = f.getSalario().divide(salarioMinimo, 2, RoundingMode.HALF_UP);
+
+            System.out.printf("%-15s %15s %12s%n",
+                    f.getNome(),
+                    moeda.format(f.getSalario()),
+                    numero.format(quantidade));
+        }
 
     }
 
