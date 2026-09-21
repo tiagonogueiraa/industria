@@ -154,6 +154,31 @@ public class Principal {
         System.out.println("Funcionário mais velho");
         System.out.println("Nome: " + maisVelho.getNome() + " | Idade: " + maiorIdade + " anos");
 
+        // Ordenar por ordem alfabética
+        List<Funcionario> ordenados = new ArrayList<>();
+
+        for (Funcionario f : funcionarios) {
+            int posicao = 0;
+
+            //Enquanto o nome da lista for menor que o do f, passa para o próximo. Quando achar um maior (ou a lista acabar), pega essa posição e insere.
+            while (posicao < ordenados.size() && ordenados.get(posicao).getNome().compareTo(f.getNome()) < 0) {
+                posicao++;
+            }
+
+            ordenados.add(posicao, f);
+        }
+        System.out.println("-".repeat(44));
+        System.out.println("Funcionários em ordem alfabética");
+        System.out.printf("%-15s %-12s %15s %-15s%n", "Nome", "Nascimento", "Salário", "Função");
+        System.out.println("-".repeat(59));
+
+        for (Funcionario f : ordenados) {
+            System.out.printf("%-15s %-12s %15s %-15s%n",
+                    f.getNome(),
+                    f.getDataNascimento().format(data),
+                    moeda.format(f.getSalario()),
+                    f.getFuncao());
+        }
 
     }
 
